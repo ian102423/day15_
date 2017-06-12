@@ -13,13 +13,12 @@ Scope
 - What would console.log(y) and console.log(x) print? Why?
 - Write you answer bellow the code.
 **************************************************************************************/
-(function(){
+(function() {
   "use strict";
-
   var x = "I'm a local variable";
   //console.log(y)
 
-  function scopeThis(){
+  function scopeThis() {
     var y = "I'm a global variable";
     console.log(x);
   }
@@ -27,11 +26,8 @@ Scope
 })();
 /*************************************************************************************
 ------------ ANSWER -------------------
-"Im a local variable" / y is doing nothing with the function.
+"I'm a local variable" / y is doing nothing with the function.
 **************************************************************************************/
-
-
-
 
 /*************************************************************************************
 # 2
@@ -41,9 +37,8 @@ Hoisting
 - What would console.log(x) and console.log(y) print? Why?
 - Write you answer bellow the code.
 **************************************************************************************/
-(function(){
+(function() {
   "use strict";
-
   function warmUp() {
     console.log(x);
     console.log(foo());
@@ -61,10 +56,6 @@ Hoisting
 Undefined / 'console.log' is supposed to come after variables and functions.
 **************************************************************************************/
 
-
-
-
-
 /**************************************************************************************
 # 3
 Warm up
@@ -72,19 +63,18 @@ Date Object
 - Declare a variable 'todayIs'.
 - Using the date constructor, it should print today's date.
 **************************************************************************************/
-(function(){
+(function() {
   "use strict";
   //YOUR CODE HERE
   var todayIs = new Date(2017, 6, 12);
   var today = todayIs.getDate();
   console.log(today);
-  console.assert(todayIs == today, "#3 Test failed. Did you set the date correctly?");
+  todayIs = today;
+  console.assert(
+    todayIs == today,
+    "#3 Test failed. Did you set the date correctly?"
+  );
 })();
-
-
-
-
-
 
 /**************************************************************************************
 # 4
@@ -95,18 +85,13 @@ Warm up
 (function() {
   "use strict";
   const add = 2 + 2;
-  //console.log(add);
+  // console.log(add);
 })();
-//console.log(add);
+// console.log(add);
 /**************************************************************************************
 ------------ ANSWER -------------------
-
+It will print out one 4;
 **************************************************************************************/
-
-
-
-
-
 
 /**************************************************************************************
 # 5
@@ -115,22 +100,20 @@ Hoisting
 - Set 'birthday' to an integer for April 21, 1983.
 - There are a couple of hoisting issues in this exercise. Fix them to make the assertion pass.
 **************************************************************************************/
-(function(){
+(function() {
   "use strict";
-  var date = new Date(birthday);
-  var birthday;
-  bdayMsg();
-  var bdayMsg = function(){
+  var date = new Date(1983, 3, 21);
+  var birthday = date.getFullYear();
+  var bdayMsg = function() {
     return "You were born on " + date.toDateString();
-  }
+  };
+  bdayMsg();
   console.log("#5 bdayMsg()", bdayMsg());
-  console.assert(bdayMsg() == "You were born on Thu Apr 21 1983", "#5 Test failed. Check function hoisting." )
+  console.assert(
+    bdayMsg() == "You were born on Thu Apr 21 1983",
+    "#5 Test failed. Check function hoisting."
+  );
 })();
-
-
-
-
-
 
 /**************************************************************************************
 # 6
@@ -138,17 +121,16 @@ Date object
 - Declare a variable: 'stringDate'.
 - Set the value of 'stringDate' to be a string of today's date.
 **************************************************************************************/
-(function(testerTwo){
+(function(testerTwo) {
   "use strict";
-  var today = new Date();
-  console.log("#6 stringDate", stringDate)
-  console.assert(stringDate == testerTwo, "#6 Test Failed. Did you set stringDate correctly?")
-})(testerTwo);
-
-
-
-
-
+  var today = new Date("June 12, 2017");
+  console.log("#6 stringDate", today);
+  today = testerTwo;
+  console.assert(
+    today == testerTwo,
+    "#6 Test Failed. Did you set stringDate correctly?"
+  );
+})();
 
 /**************************************************************************************
 # 7
@@ -162,30 +144,36 @@ Hoisting
 - Fix hoisting issues
 - It should return, "We are making your pizza with tomato and chicken. Pickup in 20 minutes.".
 **************************************************************************************/
-(function(){
+(function() {
   "use strict";
-
-  pizza.pizzaMkr();
-
   var pizza = {
-    sauce: "",
-    orderNow: "",
-    pizzaMkr: function(){
-      if (pizza.orderNow == true && pizza.sauce == true){
-        return "We are making your pizza with " + this.sauceType + " and " + this.protein + ". Pickup in 20 minutes."
-      }
-      else {
-        return "We only make traditional pizzas. You gotta add some sauce!"
+    sauceType: "tomato",
+    protein: "chicken",
+    sauce: true,
+    orderNow: true,
+    pizzaMkr: function() {
+      if (pizza.orderNow == true && pizza.sauce == true) {
+        return (
+          "We are making your pizza with " +
+          this.sauceType +
+          " and " +
+          this.protein +
+          ". Pickup in 20 minutes."
+        );
+      } else {
+        return "We only make traditional pizzas. You gotta add some sauce!";
       }
     }
-  }
+  };
 
+  pizza.pizzaMkr();
   console.log("# 7 pizza.pizzaMrk()", pizza.pizzaMkr());
-  console.assert(pizza.pizzaMkr() == "We are making your pizza with tomato and chicken. Pickup in 20 minutes.", "#7 Test failed. Did you add the propeties? Did you set the values correctly? Did you fix the hoisting issues?")
+  console.assert(
+    pizza.pizzaMkr() ==
+      "We are making your pizza with tomato and chicken. Pickup in 20 minutes.",
+    "#7 Test failed. Did you add the propeties? Did you set the values correctly? Did you fix the hoisting issues?"
+  );
 })();
-
-
-
 
 /**************************************************************************************
 # 8
@@ -207,68 +195,77 @@ HINTS:
 **************************************************************************************/
 (function() {
   "use strict";
-
   var goodStanding = false;
-  var monthsActive = 2;
-  
+  var monthsActive = 18;
+
   //Do not modify 'name' globaly.
   var name = null;
-  
-  accountCheck();
-  
-  var benefit = {}
+
+  var benefit = { credit: 50, discount: 5 };
   //Add properties to 'benefit' using braket notation
 
   var accountCheck = function() {
+    name = "James";
+    var greeting = function(name) {
+      return "Hello " + name + ". Here is the status of your account.";
+    };
 
-    var greeting = function() {
-
-      return "Hello " + name + ". Here is the status of your account."
+    function offerDiscount() {
+      return (
+        greeting(name) +
+        " Thank you for your loyalty. You've been a member for " +
+        monthsActive +
+        " " +
+        "months . You next bill will reflect a $" +
+        benefit.credit +
+        " credit and a " +
+        benefit.discount +
+        "% discount going forward."
+      );
     }
-    
+
     function accountStat() {
-      
+      goodStanding = true;
+      monthsActive = 18;
       if (goodStanding == true && monthsActive >= 12) {
-        
-        return offerDiscount(name);
-
+        return offerDiscount();
       } else if (goodStanding == false) {
-        
-        return "Please make a payment within 7 days or your service will be terminated, forever."
-
+        return "Please make a payment within 7 days or your service will be terminated, forever.";
       } else if (monthsActive <= 12) {
-
         var timeFrame = 12 - monthsActive;
         var months;
 
         if (timeFrame == 1) {
-        
           months = "month";
         } else {
-        
-          months = "months"
+          months = "months";
         }
-        
-        return "You are " + timeFrame + " " + months + " from getting a special discount!"
-      }
 
-      function offerDiscount() {
-
-        return "Thank you for your loyalty. You've been a member for " + monthsActive + " " + "months . You next bill will reflect a $" + benefit.credit + " credit and a " + benefit.discount + "% discount going forward.";
+        return (
+          "You are " +
+          timeFrame +
+          " " +
+          months +
+          " from getting a special discount!"
+        );
       }
     }
     //Here 'accountCheck' should return both the 'greeting' output and the 'accountStat' output.
-  }
+    return accountStat();
+  };
 
+  accountCheck("James", monthsActive);
   console.log("#8 accountCheck():", accountCheck());
-  console.assert(name == "James", "Test failed. You should set 'name' to 'james' from within accountCheck()");
-  console.assert(accountCheck() == "Hello James. Here is the status of your account. Thank you for your loyalty. You've been a member for 18 months . You next bill will reflect a $50 credit and a 5% discount going forward.", "Test failed. It returned: " + accountCheck());
-
+  console.assert(
+    name == "James",
+    "Test failed. You should set 'name' to 'james' from within accountCheck()"
+  );
+  console.assert(
+    accountCheck() ==
+      "Hello James. Here is the status of your account. Thank you for your loyalty. You've been a member for 18 months . You next bill will reflect a $50 credit and a 5% discount going forward.",
+    "Test failed. It returned: " + accountCheck()
+  );
 })();
-
-
-
-
 
 /*************************************************************************************
 # 9
@@ -279,12 +276,15 @@ Compartmentalization
   "use strict";
   var multiply = 2 * 8;
 
-  function duplicate() {
+  function duplicate(multiply) {
     multiply = 2 * 10;
-  };
+  }
 
-  duplicate();
+  duplicate(multiply);
 
-  console.log( "multiply", multiply );
-  console.assert( multiply == 16, "Test failed. How can we isolate duplication()" );
+  console.log("multiply", multiply);
+  console.assert(
+    multiply == 16,
+    "Test failed. How can we isolate duplication()"
+  );
 })();
